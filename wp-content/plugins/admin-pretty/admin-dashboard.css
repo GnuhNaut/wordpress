@@ -1,22 +1,7 @@
-/*
- * File CSS cho Plugin Admin Pretty (Phiên bản 7.0 - Đại Tu Ổn Định)
- * Tác giả: justsayeasy.com
- * Đại tu bởi Trợ lý Wordpress.
- *
- * Chiến lược:
- * 1. Hỗ trợ Giao diện Sáng (Light Mode) và Tối (Dark Mode).
- * 2. Tinh chỉnh toàn diện từ nền tảng v5.2, "đánh" mọi khu vực.
- * 3. Thêm các khu vực còn thiếu: .plugin-card, .profile-page, v.v.
- */
-
-/* ==========================================================================
-   1. SETTINGS: BIẾN CSS (VARIABLES) - ĐÃ ĐƯỢC TINH CHỈNH
-   ========================================================================== */
-   :root {
+:root {
     --ap-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-    /* Màu sắc - Hiện đại và sạch sẽ hơn */
-    --ap-primary: #0073ea; /* Màu xanh dương chuẩn của WordPress mới */
+    --ap-primary: #0073ea; 
     --ap-primary-dark: #0066cc;
     --ap-primary-light: #f0f6fc;
     --ap-primary-text: #ffffff;
@@ -30,25 +15,21 @@
     --ap-info: #0073ea;
     --ap-info-light: #f0f6fc;
 
-    /* Nền */
-    --ap-bg-body: #f0f2f5;      /* Nền body chính (xám rất nhạt) */
-    --ap-bg-white: #ffffff;     /* Nền của box, menu */
-    --ap-bg-hover: #f8f9fa;      /* Nền khi hover */
+    --ap-bg-body: #f0f2f5;      
+    --ap-bg-white: #ffffff;     
+    --ap-bg-hover: #f8f9fa;      
     --ap-bg-submenu: #fafbfd;
 
-    /* Chữ */
-    --ap-text-dark: #000;    /* Màu chữ chính */
-    --ap-text-light: #1e1e1e;    /* Màu chữ phụ, mô tả */
-    --ap-text-muted: #333;    /* Màu chữ mờ hơn */
+    --ap-text-dark: #000;    
+    --ap-text-light: #1e1e1e;    
+    --ap-text-muted: #333;    
     --ap-text-link: var(--ap-primary);
     --ap-text-link-hover: var(--ap-primary-dark);
 
-    /* Viền & Phân cách */
     --ap-border: #e0e2e5;
     --ap-border-light: #f0f2f5;
     --ap-border-focus: var(--ap-primary);
 
-    /* UI */
     --ap-radius-sm: 4px;
     --ap-radius: 6px;
     --ap-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
@@ -56,17 +37,11 @@
     --ap-transition: all 0.15s ease-in-out;
 }
 
-/* ==========================================================================
-   1.1 SETTINGS: DARK MODE VARIABLES (ĐÃ THÊM)
-   ========================================================================== */
-
-/* Thêm class này khi ở Chế độ Tối */
 .admin-pretty-dark-mode {
     
-    /* Màu sắc - Đảo ngược cho nền tối */
-    --ap-primary: #0080ff; /* Làm màu xanh sáng hơn một chút để nổi bật trên nền tối */
+    --ap-primary: #0080ff; 
     --ap-primary-dark: #0073ea;
-    --ap-primary-light: #2c3a4f; /* Màu nền highlight tối */
+    --ap-primary-light: #2c3a4f; 
     --ap-primary-text: #ffffff;
 
     --ap-success: #00b33c;
@@ -78,32 +53,25 @@
     --ap-info: #0080ff;
     --ap-info-light: #2c3a4f;
 
-    /* Nền */
-    --ap-bg-body: #18191a;      /* Nền body chính (Xám đen) */
-    --ap-bg-white: #242526;     /* Nền của box, menu (Xám đen nhạt) */
-    --ap-bg-hover: #3a3b3c;      /* Nền khi hover */
-    --ap-bg-submenu: #1c1d1e;   /* Nền submenu tối hơn một chút */
+    --ap-bg-body: #18191a;      
+    --ap-bg-white: #242526;     
+    --ap-bg-hover: #3a3b3c;      
+    --ap-bg-submenu: #1c1d1e;   
 
-    /* Chữ */
-    --ap-text-dark: #fff;    /* Màu chữ chính (Trắng ngà) */
-    --ap-text-light: #e4e6eb;    /* Màu chữ phụ, mô tả */
-    --ap-text-muted: #b0b3b8;    /* Màu chữ mờ hơn */
+    --ap-text-dark: #fff;    
+    --ap-text-light: #e4e6eb;    
+    --ap-text-muted: #b0b3b8;    
     --ap-text-link: var(--ap-primary);
-    --ap-text-link-hover: #3399ff; /* Link hover sáng hơn */
+    --ap-text-link-hover: #3399ff; 
 
-    /* Viền & Phân cách */
     --ap-border: #474747;
     --ap-border-light: #3a3b3c;
     --ap-border-focus: var(--ap-primary);
     
-    /* UI */
     --ap-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     --ap-shadow-lg: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* ==========================================================================
-   2. GENERIC: BASE & RESET
-   ========================================================================== */
 body, #wpwrap, .wp-core-ui {
     font-family: var(--ap-font);
     background: var(--ap-bg-body);
@@ -120,11 +88,6 @@ h1, h2, h3, h4, h5, h6, .wrap h1, .wrap h2 {
 }
 hr { border: none; border-top: 1px solid var(--ap-border); }
 
-/* ==========================================================================
-   3. LAYOUT: CẤU TRÚC CHÍNH
-   ========================================================================== */
-
-/* --- Toàn bộ nội dung --- */
 #wpcontent, #wpfooter {
     background: var(--ap-bg-body);
     color: var(--ap-text-light);
@@ -132,7 +95,6 @@ hr { border: none; border-top: 1px solid var(--ap-border); }
 #wpcontent { padding: 20px 24px 0 24px; }
 #wpfooter { padding-bottom: 30px; }
 
-/* --- Thanh Admin Bar trên cùng --- */
 #wpadminbar {
     background: var(--ap-bg-white);
     color: var(--ap-text-muted);
@@ -151,7 +113,6 @@ hr { border: none; border-top: 1px solid var(--ap-border); }
 }
 #wpadminbar #wp-admin-bar-site-name .ab-item:before { color: var(--ap-primary); }
 
-/* Menu con của Admin Bar */
 #wpadminbar .ab-submenu {
     background: var(--ap-bg-white);
     border: 1px solid var(--ap-border);
@@ -169,7 +130,6 @@ hr { border: none; border-top: 1px solid var(--ap-border); }
 }
 #wpadminbar #wp-admin-bar-my-account img { border-radius: 50%; }
 
-/* --- Menu chính bên trái --- */
 #adminmenumain {
     border-right: 1px solid var(--ap-border);
 }
@@ -179,7 +139,6 @@ hr { border: none; border-top: 1px solid var(--ap-border); }
 }
 #adminmenu { border-right-color: var(--ap-border); }
 
-/* Link menu */
 #adminmenu a, #adminmenu div.wp-menu-image::before {
     color: var(--ap-text-light) !important;
     transition: var(--ap-transition);
@@ -201,7 +160,6 @@ hr { border: none; border-top: 1px solid var(--ap-border); }
     color: var(--ap-text-dark) !important;
 }
 
-/* Menu con (Submenu) */
 #adminmenu .wp-submenu {
     background: var(--ap-bg-submenu);
     padding: 6px 0;
@@ -219,15 +177,13 @@ hr { border: none; border-top: 1px solid var(--ap-border); }
 }
 #adminmenu .wp-submenu .wp-submenu-head { display: none; }
 
-
-/* Mục menu đang được chọn (Current) */
 #adminmenu li.current a.menu-top,
 #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu,
 .folded #adminmenu li.current.menu-top {
     background: var(--ap-primary-light);
     color: var(--ap-primary) !important;
     font-weight: 600;
-    box-shadow: inset 3px 0 0 var(--ap-primary); /* Viền trái */
+    box-shadow: inset 3px 0 0 var(--ap-primary); 
 }
 #adminmenu li.current div.wp-menu-image::before,
 #adminmenu li.wp-has-current-submenu div.wp-menu-image::before {
@@ -241,12 +197,6 @@ hr { border: none; border-top: 1px solid var(--ap-border); }
     font-weight: 600;
 }
 
-
-/* ==========================================================================
-   4. COMPONENTS: CÁC THÀNH PHẦN UI
-   ========================================================================== */
-
-/* --- Thông báo (Notices) --- */
 .notice, .wrap > .notice, .update-nag {
     border: 1px solid var(--ap-border);
     border-left-width: 4px;
@@ -277,7 +227,6 @@ hr { border: none; border-top: 1px solid var(--ap-border); }
     background: var(--ap-info-light);
 }
 
-/* --- Nút bấm (Buttons) --- */
 .wp-core-ui .button {
     border-radius: var(--ap-radius-sm);
     transition: var(--ap-transition);
@@ -285,7 +234,7 @@ hr { border: none; border-top: 1px solid var(--ap-border); }
     font-weight: 500;
     padding: 6px 14px;
     font-size: 13px;
-    height: 36px; /* Chiều cao chuẩn */
+    height: 36px; 
     line-height: 24px;
     box-shadow: var(--ap-shadow);
     background: var(--ap-bg-white);
@@ -328,12 +277,11 @@ hr { border: none; border-top: 1px solid var(--ap-border); }
     line-height: 32px;
 }
 
-/* --- Box (Metabox) --- */
 .postbox, .metabox-holder {
     background: var(--ap-bg-white);
     border: 1px solid var(--ap-border);
     border-radius: var(--ap-radius);
-    box-shadow: none; /* Tối giản */
+    box-shadow: none; 
     margin-bottom: 20px;
 }
 .postbox .hndle, .metabox-holder .hndle {
@@ -348,11 +296,10 @@ hr { border: none; border-top: 1px solid var(--ap-border); }
     padding: 18px;
     line-height: 1.6;
 }
-.postbox .postbox-header { /* Gutenberg */
+.postbox .postbox-header { 
     border-bottom: 1px solid var(--ap-border);
 }
 
-/* --- Form (Ô nhập liệu) --- */
 input[type=text], input[type=search], input[type=email],
 input[type=url], input[type=password], input[type=number],
 textarea, select {
@@ -375,7 +322,6 @@ textarea:focus, select:focus {
 .form-table th { padding-left: 0; }
 .form-table td { padding: 15px 10px; }
 
-/* Custom Checkbox & Radio (Lấy từ v5.2) */
 input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
@@ -429,7 +375,6 @@ input[type="radio"]:checked::before {
     position: absolute;
 }
 
-/* --- Bảng biểu (List Tables) --- */
 .wrap .wp-list-table, .wrap .form-wrap {
     background: var(--ap-bg-white);
     border: 1px solid var(--ap-border);
@@ -465,11 +410,6 @@ input[type="radio"]:checked::before {
 }
 .search-box { padding: 0; }
 
-/* ==========================================================================
-   5. PAGES: TINH CHỈNH CÁC TRANG CỤ THỂ
-   ========================================================================== */
-
-/* --- Bảng tin (Dashboard) --- */
 .welcome-panel {
     background: var(--ap-bg-white) !important;
     border: 1px solid var(--ap-border) !important;
@@ -490,7 +430,6 @@ input[type="radio"]:checked::before {
 .welcome-panel-close { color: var(--ap-text-muted) !important; }
 .welcome-panel-content { background: none !important; }
 
-/* --- Trang 2 Cột (Danh mục, Thẻ) --- */
 #col-left .col-wrap,
 #col-right .col-wrap {
     background: var(--ap-bg-white);
@@ -516,7 +455,6 @@ input[type="radio"]:checked::before {
     border-bottom: 0;
 }
 
-/* --- Trang Plugins --- */
 .plugins .plugin-card {
     background: var(--ap-bg-white);
     border: 1px solid var(--ap-border);
@@ -538,7 +476,6 @@ input[type="radio"]:checked::before {
     border-radius: 0 0 var(--ap-radius) var(--ap-radius);
 }
 
-/* --- Trang Profile --- */
 .profile-page #your-profile {
     background: var(--ap-bg-white);
     border: 1px solid var(--ap-border);
@@ -546,7 +483,6 @@ input[type="radio"]:checked::before {
     padding: 10px 20px 20px;
 }
 
-/* --- Trang Widgets --- */
 .widgets-holder-wrap {
     background: var(--ap-bg-white);
     border: 1px solid var(--ap-border);
@@ -558,7 +494,6 @@ input[type="radio"]:checked::before {
     border: 1px solid var(--ap-border);
 }
 
-/* --- Gutenberg Editor --- */
 .edit-post-layout__content {
     background: var(--ap-bg-body) !important;
 }
@@ -577,13 +512,12 @@ input[type="radio"]:checked::before {
 .wp-block[data-align="wide"] { max-width: 1080px !important; }
 .wp-block[data-align="full"] { max-width: none !important; }
 
-/* --- Media Library Modal --- */
 .media-modal {
-    background: rgba(240, 242, 245, 0.85); /* Dùng màu nền body */
+    background: rgba(240, 242, 245, 0.85); 
     backdrop-filter: blur(5px);
 }
 .admin-pretty-dark-mode .media-modal {
-    background: rgba(24, 25, 26, 0.85); /* Màu nền body dark mode */
+    background: rgba(24, 25, 26, 0.85); 
 }
 .media-modal .media-frame {
     background: var(--ap-bg-white);
@@ -607,7 +541,6 @@ input[type="radio"]:checked::before {
     border-top: 1px solid var(--ap-border);
 }
 
-/* --- Tinh chỉnh Dark Mode riêng (ĐÃ THÊM) --- */
 .admin-pretty-dark-mode #adminmenu .wp-menu-separator {
     background: var(--ap-border);
 }
@@ -618,7 +551,6 @@ input[type="radio"]:checked::before {
 .admin-pretty-dark-mode .form-table th, .form-wrap label {
     color: var(--ap-text-dark);
 }
-/* Đảm bảo chữ trên nút Primary luôn là màu trắng */
 .admin-pretty-dark-mode .wp-core-ui .button-primary {
     color: var(--ap-primary-text) !important;
 }
@@ -627,7 +559,6 @@ input[type="radio"]:checked::before {
     color: var(--ap-primary-text) !important;
 }
 
-/* Sửa màu icon trên admin bar */
 .admin-pretty-dark-mode #wpadminbar #adminbarsearch:before, 
 .admin-pretty-dark-mode #wpadminbar .ab-icon:before, 
 .admin-pretty-dark-mode #wpadminbar .ab-item:before {
@@ -637,8 +568,6 @@ input[type="radio"]:checked::before {
     color: var(--ap-primary);
 }
 
-
-/* --- Các tinh chỉnh còn lại từ file gốc --- */
 #adminmenuback {
     background: var(--ap-bg-white);
 }
