@@ -1,0 +1,563 @@
+/*
+ * File CSS cho Plugin Admin Pretty (Phiên bản 5.2 - Hệ thống Giao diện Toàn diện)
+ * Tác giả: justsayeasy.com
+ * Đại tu bởi Chuyên gia Gemini.
+ *
+ * Cấu trúc file:
+ * 1. SETTINGS: Biến CSS (Variables)
+ * 2. GENERIC: Base & Reset
+ * 3. LAYOUT: Cấu trúc chính (Admin Bar, Menu, Content Wrap)
+ * 4. COMPONENTS: Các thành phần UI (Buttons, Notices, Forms, Tables, Boxes)
+ * 5. PAGES: Tinh chỉnh cho các trang cụ thể (Gutenberg, Media, Taxonomies)
+ *
+ * *** CẬP NHẬT v5.2: Sửa lỗi .welcome-panel (box đen) trên Bảng tin ***
+ */
+
+/* ==========================================================================
+   1. SETTINGS: BIẾN CSS (VARIABLES)
+   ========================================================================== */
+   :root {
+    /* Màu sắc */
+    --ap-primary: #007BFF;
+    --ap-primary-dark: #0069D9;
+    --ap-primary-light: #EBF4FF;
+    --ap-danger: #dc3545;
+    --ap-danger-light: #FBEBEC;
+
+    /* Nền */
+    --ap-bg-main: #F0F2F5;
+    --ap-bg-white: #FFFFFF;
+    --ap-bg-hover: #F8F9FA;
+    --ap-bg-sub-menu: #FCFDFD;
+
+    /* Chữ */
+    --ap-text-dark: #212529;
+    --ap-text-muted: #6C757D;
+    --ap-text-light: #4A5568; /* Màu chữ menu */
+    --ap-text-link: #007BFF;
+
+    /* Viền & Phân cách */
+    --ap-border: #E0E2E5;
+    --ap-border-light: #E9ECEF;
+    --ap-border-focus: var(--ap-primary);
+
+    /* UI */
+    --ap-radius: 6px;
+    --ap-radius-sm: 4px;
+    --ap-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --ap-shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.07);
+    --ap-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --ap-transition: all 0.15s ease-in-out;
+}
+
+/* ==========================================================================
+   2. GENERIC: BASE & RESET
+   ========================================================================== */
+body, #wpwrap, .wp-core-ui {
+    font-family: var(--ap-font);
+    background: var(--ap-bg-main);
+    color: var(--ap-text-dark);
+}
+a {
+    color: var(--ap-text-link);
+    transition: var(--ap-transition);
+}
+a:hover { color: var(--ap-primary-dark); }
+h1, h2, h3, h4, h5, h6, .wrap h1, .wrap h2 {
+    color: var(--ap-text-dark);
+    font-weight: 600;
+}
+hr {
+    border: none;
+    border-top: 1px solid var(--ap-border-light);
+}
+
+/* ==========================================================================
+   3. LAYOUT: CẤU TRÚC CHÍNH
+   ========================================================================== */
+
+/* --- Toàn bộ nội dung --- */
+#wpcontent, #wpfooter {
+    background: var(--ap-bg-main);
+    color: var(--ap-text-dark);
+}
+#wpcontent { padding: 20px 24px 0 24px; }
+
+/* --- Thanh Admin Bar trên cùng --- */
+#wpadminbar {
+    background: var(--ap-bg-white);
+    color: var(--ap-text-muted);
+    border-bottom: 1px solid var(--ap-border);
+    box-shadow: var(--ap-shadow);
+}
+#wpadminbar .ab-item, #wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label {
+    color: var(--ap-text-muted);
+}
+#wpadminbar .ab-item:hover, #wpadminbar a.ab-item:hover,
+#wpadminbar .ab-top-menu > li:hover > .ab-item {
+    background: var(--ap-bg-hover);
+    color: var(--ap-primary);
+}
+#wpadminbar #wp-admin-bar-site-name .ab-item:before { color: var(--ap-primary); }
+
+/* Menu con của Admin Bar (FIX LỖI ĐEN) */
+#wpadminbar .ab-submenu {
+    background: var(--ap-bg-white);
+    border: 1px solid var(--ap-border);
+    box-shadow: var(--ap-shadow-lg);
+    border-radius: 0 0 var(--ap-radius) var(--ap-radius);
+}
+#wpadminbar .ab-submenu .ab-item {
+    color: var(--ap-text-muted) !important;
+}
+#wpadminbar .ab-submenu .ab-item:hover {
+    color: var(--ap-primary) !important;
+    background: var(--ap-bg-hover) !important;
+}
+
+/* --- Menu chính bên trái --- */
+#adminmenumain {
+    border-right: 1px solid var(--ap-border);
+}
+#adminmenuwrap, #adminmenu, #adminmenu .wp-submenu {
+    background: var(--ap-bg-white);
+    border-right: none;
+}
+#adminmenu { border-right-color: var(--ap-border); }
+
+/* Link menu */
+#adminmenu a, #adminmenu div.wp-menu-image::before {
+    color: var(--ap-text-light) !important;
+    transition: var(--ap-transition);
+}
+#adminmenu .wp-menu-separator {
+    height: 1px;
+    background: var(--ap-border-light);
+    margin: 6px 0;
+}
+#adminmenu li.menu-top:hover,
+#adminmenu li.opensub > a.menu-top,
+#adminmenu li > a.menu-top:focus {
+    background: var(--ap-bg-hover);
+    color: var(--ap-primary) !important;
+}
+#adminmenu li:hover div.wp-menu-image::before,
+#adminmenu li.menu-top:hover > a {
+    color: var(--ap-primary) !important;
+}
+
+/* Menu con (Submenu) */
+#adminmenu .wp-submenu {
+    background: var(--ap-bg-sub-menu);
+    padding: 6px 0;
+}
+#adminmenu .wp-submenu li {
+    padding: 0;
+}
+#adminmenu .wp-submenu a {
+    color: var(--ap-text-muted) !important;
+    padding: 8px 12px 8px 30px !important;
+}
+#adminmenu .wp-submenu a:hover {
+    background: var(--ap-bg-hover);
+    color: var(--ap-primary) !important;
+}
+#adminmenu .wp-submenu .wp-submenu-head { display: none; }
+
+
+/* Mục menu đang được chọn (Current) */
+#adminmenu li.current a.menu-top,
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu,
+.folded #adminmenu li.current.menu-top {
+    background: var(--ap-primary-light);
+    color: var(--ap-primary) !important;
+    font-weight: 600;
+    /* Viền trái */
+    box-shadow: inset 4px 0 0 var(--ap-primary); 
+}
+#adminmenu li.current div.wp-menu-image::before,
+#adminmenu li.wp-has-current-submenu div.wp-menu-image::before {
+    color: var(--ap-primary) !important;
+}
+#adminmenu .wp-has-current-submenu .wp-submenu {
+    background: var(--ap-bg-sub-menu);
+}
+#adminmenu .wp-has-current-submenu .wp-submenu li.current a {
+    color: var(--ap-primary) !important;
+    font-weight: 600;
+}
+
+
+/* ==========================================================================
+   4. COMPONENTS: CÁC THÀNH PHẦN UI
+   ========================================================================== */
+
+/* --- Thông báo (Notices) --- */
+.notice, .wrap > .notice, .update-nag {
+    border: 1px solid var(--ap-border);
+    border-left-width: 4px;
+    background: var(--ap-bg-white);
+    border-radius: var(--ap-radius-sm);
+    box-shadow: var(--ap-shadow);
+    padding: 15px 20px;
+    margin-bottom: 20px;
+}
+.notice p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+.notice-success, .is-success {
+    border-left-color: var(--ap-success);
+    background: var(--ap-success-light);
+}
+.notice-warning, .is-warning {
+    border-left-color: var(--ap-warning);
+    background: var(--ap-warning-light);
+}
+.notice-error, .is-error {
+    border-left-color: var(--ap-danger);
+    background: var(--ap-danger-light);
+}
+.notice-info, .is-info {
+    border-left-color: var(--ap-primary);
+    background: var(--ap-primary-light);
+}
+
+/* --- Nút bấm (Buttons) --- */
+.wp-core-ui .button {
+    border-radius: var(--ap-radius-sm);
+    transition: var(--ap-transition);
+    border: 1px solid #CED4DA;
+    font-weight: 500;
+    padding: 6px 14px;
+    font-size: 13px;
+    height: auto;
+    line-height: 1.5;
+}
+.wp-core-ui .button-primary {
+    background: var(--ap-primary);
+    border-color: var(--ap-primary);
+    color: #ffffff;
+    text-shadow: none;
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+}
+.wp-core-ui .button-primary:hover,
+.wp-core-ui .button-primary:focus {
+    background: var(--ap-primary-dark);
+    border-color: var(--ap-primary-dark);
+    color: #ffffff;
+    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.4);
+}
+.wp-core-ui .button-secondary,
+.wp-core-ui .button-secondary:hover {
+    background: var(--ap-bg-white);
+    color: var(--ap-text-dark);
+    border-color: #CED4DA;
+}
+.wp-core-ui .button-secondary:hover {
+    background: var(--ap-bg-hover);
+    border-color: #B4BCC2;
+}
+.wp-core-ui .button-danger, .wp-core-ui .button.delete {
+    background: var(--ap-danger);
+    border-color: var(--ap-danger);
+    color: #fff;
+}
+.wp-core-ui .button-danger:hover, .wp-core-ui .button.delete:hover {
+    background: #c82333;
+    border-color: #bd2130;
+    color: #fff;
+}
+.wp-core-ui .page-title-action {
+    border-radius: var(--ap-radius-sm);
+    margin-left: 8px;
+}
+
+/* --- Box (Metabox) --- */
+.postbox, .metabox-holder {
+    background: var(--ap-bg-white);
+    border: 1px solid var(--ap-border);
+    border-radius: var(--ap-radius);
+    box-shadow: var(--ap-shadow);
+    margin-bottom: 20px;
+}
+.postbox .hndle, .metabox-holder .hndle {
+    background: var(--ap-bg-hover);
+    border-bottom: 1px solid var(--ap-border);
+    border-radius: var(--ap-radius) var(--ap-radius) 0 0;
+    font-weight: 600;
+    padding: 14px 18px;
+    font-size: 14px;
+}
+.postbox .inside, .metabox-holder .inside {
+    padding: 18px;
+    line-height: 1.6;
+}
+.postbox .postbox-header { /* Gutenberg */
+    border-bottom: 1px solid var(--ap-border);
+}
+
+/* --- Form (Ô nhập liệu) --- */
+input[type=text], input[type=search], input[type=email],
+input[type=url], input[type=password], textarea, select {
+    border: 1px solid #CED4DA;
+    border-radius: var(--ap-radius-sm);
+    padding: 8px 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04) inset;
+    transition: var(--ap-transition);
+}
+input[type=text]:focus, input[type=search]:focus, input[type=email]:focus,
+input[type=url]:focus, input[type=password]:focus, textarea:focus, select:focus {
+    border-color: var(--ap-border-focus);
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+.form-table { margin-top: 0; }
+.form-table th { padding-left: 0; }
+.form-table td { padding: 15px 10px; }
+
+/* Custom Checkbox & Radio */
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #CED4DA;
+    border-radius: 4px;
+    background: var(--ap-bg-white);
+    cursor: pointer;
+    vertical-align: middle;
+    margin-right: 5px;
+    position: relative;
+    top: -1px;
+}
+input[type="checkbox"]:checked {
+    background: var(--ap-primary);
+    border-color: var(--ap-primary);
+}
+input[type="checkbox"]:checked::before {
+    content: '✔';
+    color: white;
+    font-size: 12px;
+    display: block;
+    text-align: center;
+    line-height: 14px;
+}
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #CED4DA;
+    border-radius: 50%;
+    background: var(--ap-bg-white);
+    cursor: pointer;
+    vertical-align: middle;
+    margin-right: 5px;
+    position: relative;
+    top: -1px;
+}
+input[type="radio"]:checked {
+    border-color: var(--ap-primary);
+}
+input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: var(--ap-primary);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* --- Bảng biểu (List Tables) --- */
+.wrap .wp-list-table, .wrap .form-wrap {
+    background: var(--ap-bg-white);
+    border: 1px solid var(--ap-border);
+    border-radius: var(--ap-radius);
+    box-shadow: var(--ap-shadow);
+    margin-bottom: 20px;
+}
+.wp-list-table { border: none; }
+.wp-list-table th, .wp-list-table td {
+    border-bottom: 1px solid var(--ap-border-light);
+    padding: 12px 14px;
+}
+.wp-list-table thead th {
+    background: var(--ap-bg-hover);
+    font-weight: 600;
+}
+.wp-list-table tbody tr:hover {
+    background: var(--ap-bg-hover);
+}
+.tablenav {
+    border-bottom: 1px solid var(--ap-border);
+    border-radius: var(--ap-radius) var(--ap-radius) 0 0;
+    padding: 10px 14px;
+}
+.tablenav.bottom {
+    border-top: 1px solid var(--ap-border);
+    border-bottom: none;
+    border-radius: 0 0 var(--ap-radius) var(--ap-radius);
+}
+.search-box { padding: 0; }
+
+/* ==========================================================================
+   5. PAGES: TINH CHỈNH CÁC TRANG CỤ THỂ
+   ========================================================================== */
+
+/* --- [FIX v5.2] Bảng tin (Dashboard) --- */
+
+/* 1. Sửa lỗi "Welcome Panel" (cái box đen sì) */
+.welcome-panel {
+    background: var(--ap-bg-white) !important;
+    border: 1px solid var(--ap-border) !important;
+    border-radius: var(--ap-radius) !important;
+    box-shadow: var(--ap-shadow) !important;
+    color: var(--ap-text-dark) !important;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+.welcome-panel h1, .welcome-panel .about-description,
+.welcome-panel-content .welcome-panel-column h3,
+.welcome-panel-content .welcome-panel-column a {
+    color: var(--ap-text-dark) !important;
+}
+.welcome-panel-content .welcome-panel-column a:hover {
+    color: var(--ap-primary) !important;
+}
+.welcome-panel-close {
+    color: var(--ap-text-muted) !important;
+}
+.welcome-panel-close:hover {
+    color: var(--ap-primary) !important;
+}
+/* Ẩn ảnh nền (nếu có) và dọn dẹp */
+.welcome-panel-content {
+    background: none !important;
+}
+.welcome-panel-column-container {
+    padding-top: 20px;
+}
+
+/* 2. Đảm bảo các box khác trên Bảng tin cũng là box trắng */
+#dashboard-widgets .postbox {
+    /* Đã được xử lý bởi .postbox chung */
+}
+/* -------------------------------------- */
+
+
+/* --- Trang 2 Cột (Danh mục, Thẻ) --- */
+#col-left .col-wrap,
+#col-right .col-wrap {
+    background: var(--ap-bg-white);
+    border: 1px solid var(--ap-border);
+    border-radius: var(--ap-radius);
+    box-shadow: var(--ap-shadow);
+    margin-bottom: 20px;
+    padding: 0;
+}
+/* Form thêm */
+#col-left .col-wrap {
+    padding: 24px;
+}
+.form-wrap { padding: 0; }
+/* Bảng danh sách */
+#col-right .col-wrap .wp-list-table {
+    box-shadow: none;
+    border: none;
+}
+#col-right .col-wrap .tablenav { border-radius: 0; }
+#col-right .col-wrap .tablenav.top {
+    border-radius: var(--ap-radius) var(--ap-radius) 0 0;
+}
+#col-right .col-wrap .tablenav.bottom {
+    border-radius: 0 0 var(--ap-radius) var(--ap-radius);
+}
+
+
+/* --- Gutenberg Editor --- */
+/* Ẩn thanh header xám của WP */
+.interface-complementary-area,
+.edit-post-header,
+.edit-post-header__toolbar,
+.edit-post-header-toolbar__left {
+    background: var(--ap-bg-white) !important;
+    border-bottom: 1px solid var(--ap-border) !important;
+}
+.edit-post-sidebar {
+    background: var(--ap-bg-white) !important;
+    border-left: 1px solid var(--ap-border) !important;
+}
+/* Nút trong Gutenberg */
+.edit-post-header .components-button {
+    color: var(--ap-text-muted);
+}
+.edit-post-header .components-button:hover {
+    color: var(--ap-primary);
+}
+/* Giao diện Viết */
+.edit-post-layout__content {
+    background: var(--ap-bg-main) !important;
+}
+/* Khung soạn thảo chính */
+.wp-block-post-title,
+.block-editor-default-block-appender,
+.block-editor-writing-flow {
+    max-width: 800px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+.wp-block {
+    max-width: 800px !important;
+}
+/* Tinh chỉnh sidebar Gutenberg */
+.interface-complementary-area .components-panel__body,
+.interface-complementary-area .components-panel__header {
+    border-color: var(--ap-border-light) !important;
+}
+.interface-complementary-area .components-button {
+    transition: var(--ap-transition);
+}
+
+/* --- Media Library Modal --- */
+.media-modal {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+}
+.media-modal .media-frame {
+    background: var(--ap-bg-white);
+    border: 1px solid var(--ap-border);
+    border-radius: var(--ap-radius);
+    box-shadow: var(--ap-shadow-lg);
+}
+.media-modal .media-frame-menu {
+    background: var(--ap-bg-hover);
+    border-right: 1px solid var(--ap-border);
+}
+.media-modal .media-frame-menu .media-menu-item {
+    color: var(--ap-text-muted);
+}
+.media-modal .media-frame-menu .media-menu-item:hover {
+    background: var(--ap-bg-white);
+    color: var(--ap-primary);
+}
+.media-modal .media-frame-menu .media-menu-item.active {
+    background: var(--ap-bg-white);
+    color: var(--ap-text-dark);
+    font-weight: 600;
+}
+.media-modal .media-frame-content {
+    background: var(--ap-bg-main);
+}
+.media-modal .attachment-details {
+    background: var(--ap-bg-hover);
+    border-left: 1px solid var(--ap-border);
+}
+.media-modal .media-toolbar {
+    background: var(--ap-bg-white);
+    border-top: 1px solid var(--ap-border);
+}
