@@ -1,147 +1,131 @@
 /*
- * Admin Pretty (Phiên bản 7.0 - Đại tu trang Đăng nhập)
- * Đã bao gồm Sửa lỗi Click v6.1
+ * File CSS cho Trang Đăng Nhập (Phiên bản 7.0 - Ổn định)
+ * Tác giả: justsayeasy.com
+ * Tái cấu trúc bởi Trợ lý Wordpress.
  */
 
- body.login {
-    background: var(--ap-bg-main);
+/* === Biến CSS (Đồng bộ 100% với file dashboard v7.0) === */
+:root {
+    --ap-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --ap-primary: #0073ea;
+    --ap-primary-dark: #0066cc;
+    --ap-primary-text: #ffffff;
+    
+    --ap-bg-body: #f0f2f5;
+    --ap-bg-white: #ffffff;
+    
+    --ap-text-dark: #1e1e1e;
+    --ap-text-muted: #6C757D;
+
+    --ap-border: #e0e2e5;
+    --ap-border-focus: var(--ap-primary);
+
+    --ap-radius-sm: 4px;
+    --ap-radius: 6px;
+    --ap-shadow-lg: 0 5px 15px rgba(0, 0, 0, 0.07);
+    --ap-transition: all 0.15s ease-in-out;
 }
 
-/* Thêm một lớp gradient nền cho đẹp */
-body.login::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--ap-primary) 0%, var(--ap-primary-dark) 100%);
-    opacity: 0.1;
-    z-index: -1; /* FIX v6.1: Đưa lớp nền ra sau cùng */
-    pointer-events: none;
+/* === Cấu trúc chung === */
+body.login {
+    background: var(--ap-bg-body);
+    font-family: var(--ap-font);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
 }
-
-@media (prefers-color-scheme: dark) {
-    body.login::before {
-        background: linear-gradient(135deg, var(--ap-bg-card) 0%, var(--ap-bg-main) 100%);
-        opacity: 0.2;
-    }
-}
-
 #login {
-    width: 400px;
+    width: 360px;
     padding: 0;
-    margin: auto;
 }
 
-/* --- Logo --- */
+/* === Logo === */
 .login h1 {
-    padding: 0;
-    margin: 0 auto 32px;
+    background: var(--ap-bg-white);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 .login h1 a {
+    background-image: none !important;
     display: block;
-    width: 64px;
-    height: 64px;
-    margin: 0 auto;
-    /* Cập nhật màu fill v7.0: #3B82F6 */
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%233B82F6"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zM7.71 14.26a.6.6 0 00.1.25c.12.16.27.3.46.4.2.1.4.16.6.2.22.04.45.06.68.06.42 0 .8-.08 1.14-.24.34-.16.6-.4.8-.7l.1-.15.3-1.2a.5.5 0 00-.94-.3l-.2 1c-.1.2-.24.34-.4.4-.18.08-.36.12-.54.12-.16 0-.3-.02-.44-.06-.14-.04-.26-.1-.36-.18-.1-.08-.18-.18-.24-.3-.06-.12-.1-.25-.1-.4v-5.4c0-.15.04-.28.1-.4.06-.12.14-.22.24-.3.1-.08.22-.14.36-.18.14-.04.3-.06.44-.06.18 0 .36.04.54.12.16.06.3.2.4.4l.2 1a.5.5 0 00.95-.3l-.3-1.2c-.2-.3-.46-.54-.8-.7C11.6 4.08 11.22 4 10.8 4c-.23 0-.46.02-.68.06-.2.04-.4.1-.6.2-.2.1-.36.24-.46.4a.6.6 0 00-.1.25L9 6.22V5.7c0-.2-.06-.38-.2-.52-.13-.14-.3-.2-.5-.2h-.6c-.2 0-.37.07-.5.2-.14.14-.2.32-.2.52v9c0 .2.06.38.2.52.13.14.3.2.5.2h.6c.2 0 .37-.07.5-.2.14-.14-.2-.32-.2-.52v-.94l-1.28 1.5z" clip-rule="evenodd" /></svg>');
+    width: 48px;
+    height: 48px;
+    /* Logo WP màu --ap-primary */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%230073ea"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zM7.71 14.26a.6.6 0 00.1.25c.12.16.27.3.46.4.2.1.4.16.6.2.22.04.45.06.68.06.42 0 .8-.08 1.14-.24.34-.16.6-.4.8-.7l.1-.15.3-1.2a.5.5 0 00-.94-.3l-.2 1c-.1.2-.24.34-.4.4-.18.08-.36.12-.54.12-.16 0-.3-.02-.44-.06-.14-.04-.26-.1-.36-.18-.1-.08-.18-.18-.24-.3-.06-.12-.1-.25-.1-.4v-5.4c0-.15.04-.28.1-.4.06-.12.14-.22.24-.3.1-.08.22-.14.36-.18.14-.04.3-.06.44-.06.18 0 .36.04.54.12.16.06.3.2.4.4l.2 1a.5.5 0 00.95-.3l-.3-1.2c-.2-.3-.46-.54-.8-.7C11.6 4.08 11.22 4 10.8 4c-.23 0-.46.02-.68.06-.2.04-.4.1-.6.2-.2.1-.36.24-.46.4a.6.6 0 00-.1.25L9 6.22V5.7c0-.2-.06-.38-.2-.52-.13-.14-.3-.2-.5-.2h-.6c-.2 0-.37.07-.5.2-.14.14-.2.32-.2.52v9c0 .2.06.38.2.52.13.14.3.2.5.2h.6c.2 0 .37-.07.5-.2.14-.14-.2-.32-.2-.52v-.94l-1.28 1.5z" clip-rule="evenodd" /></svg>');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    transition: var(--ap-transition-fast);
 }
 
-@media (prefers-color-scheme: dark) {
-    .login h1 a {
-        /* Cập nhật màu fill v7.0: #60A5FA */
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%2360A5FA"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zM7.71 14.26a.6.6 0 00.1.25c.12.16.27.3.46.4.2.1.4.16.6.2.22.04.45.06.68.06.42 0 .8-.08 1.14-.24.34-.16.6-.4.8-.7l.1-.15.3-1.2a.5.5 0 00-.94-.3l-.2 1c-.1.2-.24.34-.4.4-.18.08-.36.12-.54.12-.16 0-.3-.02-.44-.06-.14-.04-.26-.1-.36-.18-.1-.08-.18-.18-.24-.3-.06-.12-.1-.25-.1-.4v-5.4c0-.15.04-.28.1-.4.06-.12.14-.22.24-.3.1-.08.22-.14.36-.18.14-.04.3-.06.44-.06.18 0 .36.04.54.12.16.06.3.2.4.4l.2 1a.5.5 0 00.95-.3l-.3-1.2c-.2-.3-.46-.54-.8-.7C11.6 4.08 11.22 4 10.8 4c-.23 0-.46.02-.68.06-.2.04-.4.1-.6.2-.2.1-.36.24-.46.4a.6.6 0 00-.1.25L9 6.22V5.7c0-.2-.06-.38-.2-.52-.13-.14-.3-.2-.5-.2h-.6c-.2 0-.37.07-.5.2-.14.14-.2.32-.2.52v9c0 .2.06.38.2.52.13.14.3.2.5.2h.6c.2 0 .37-.07.5-.2.14-.14-.2-.32-.2-.52v-.94l-1.28 1.5z" clip-rule="evenodd" /></svg>');
-    }
-}
-
-/* --- Box Đăng Nhập --- */
+/* === Box Đăng Nhập === */
 #loginform {
-    background: var(--ap-bg-card);
+    background: var(--ap-bg-white);
     border: 1px solid var(--ap-border);
-    border-radius: var(--ap-radius-lg);
+    border-radius: var(--ap-radius);
     box-shadow: var(--ap-shadow-lg);
-    padding: 40px;
+    padding: 30px;
     margin-top: 0;
 }
-
-/* --- Form Fields --- */
 .login label {
-    font-weight: 500;
-    color: var(--ap-text-primary);
+    font-weight: 600;
+    color: var(--ap-text-dark);
     margin-bottom: 8px;
     display: inline-block;
-    font-size: 14px;
 }
 
+/* === Form Fields === */
 .login form .input,
 .login input[type="text"],
 .login input[type="password"] {
-    border: 1px solid var(--ap-border);
-    border-radius: var(--ap-radius);
-    padding: 12px 14px;
+    border: 1px solid #CED4DA;
+    border-radius: var(--ap-radius-sm);
+    padding: 10px 14px;
     font-size: 16px;
-    box-shadow: none;
-    transition: var(--ap-transition-fast);
-    margin-bottom: 24px;
-    background: var(--ap-bg-main);
-    color: var(--ap-text-primary);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04) inset;
+    transition: var(--ap-transition);
+    margin-bottom: 20px;
+    height: 44px;
+    background: var(--ap-bg-white);
+    color: var(--ap-text-dark);
 }
 
 .login form .input:focus,
 .login input[type="text"]:focus,
 .login input[type="password"]:focus {
     border-color: var(--ap-border-focus);
-    box-shadow: var(--ap-shadow-focus);
+    box-shadow: 0 0 0 3px var(--ap-primary-light);
     outline: none;
 }
 
-.login .forgetmenot { margin-top: 10px; }
-.login .forgetmenot label {
-    font-size: 13px;
-    color: var(--ap-text-secondary);
-    font-weight: 400;
-}
-.login .forgetmenot input[type="checkbox"] {
-    top: 0;
-}
-
-
-/* --- Nút Đăng Nhập --- */
+/* === Nút Đăng Nhập === */
 .login .button-primary {
     width: 100%;
-    padding: 12px 16px;
+    padding: 10px 14px;
     font-size: 16px;
     font-weight: 600;
     background: var(--ap-primary);
     border-color: var(--ap-primary);
-    border-radius: var(--ap-radius);
+    color: var(--ap-primary-text);
+    border-radius: var(--ap-radius-sm);
     text-shadow: none;
-    box-shadow: var(--ap-shadow);
-    transition: var(--ap-transition-fast);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: var(--ap-transition);
     margin-top: 10px;
+    height: 44px;
 }
-.login .button-primary:hover,
-.login .button-primary:focus {
+.login .button-primary:hover {
     background: var(--ap-primary-dark);
     border-color: var(--ap-primary-dark);
-    box-shadow: var(--ap-shadow), var(--ap-shadow-focus);
-}
-.login .button-primary:active {
-    transform: scale(0.98);
 }
 
-/* --- Link (Quên mật khẩu, quay lại) --- */
-.login #backtoblog,
-.login #nav {
-    text-align: center;
-    padding: 0;
-    margin-top: 24px;
-}
+/* === Link (Quên mật khẩu, quay lại) === */
 .login #backtoblog a,
 .login #nav a {
     color: var(--ap-text-muted);
@@ -151,31 +135,23 @@ body.login::before {
 .login #nav a:hover {
     color: var(--ap-primary);
 }
-
-/* --- Thông báo lỗi --- */
-.login #login_error, 
-.login .message {
-    border: 1px solid var(--ap-border);
-    border-radius: var(--ap-radius-lg);
-    box-shadow: var(--ap-shadow);
-    background: var(--ap-bg-card);
+.login #nav {
+    float: none;
+    text-align: center;
+    padding: 0;
+    margin-top: 25px;
 }
-.login #login_error {
-    border-left: 4px solid var(--ap-danger);
-    background: var(--ap-danger-light);
-    color: var(--ap-text-primary);
-}
-.login .message {
-    border-left: 4px solid var(--ap-success);
-    background: var(--ap-success-light);
-    color: var(--ap-text-primary);
+.login #backtoblog {
+    float: none;
+    text-align: center;
+    padding: 0;
+    margin-top: 10px;
 }
 
-@media (prefers-color-scheme: dark) {
-    .login #login_error {
-        color: var(--ap-text-primary);
-    }
-    .login .message {
-        color: var(--ap-text-primary);
-    }
+/* Thông báo lỗi */
+.login #login_error, .login .message {
+    border-radius: var(--ap-radius-sm);
+    border-color: var(--ap-border);
+    background: var(--ap-bg-white);
+    box-shadow: var(--ap-shadow-lg);
 }
