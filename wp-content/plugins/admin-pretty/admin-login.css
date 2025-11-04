@@ -9,12 +9,15 @@
     --ap-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --ap-primary: #0073ea;
     --ap-primary-dark: #0066cc;
+    --ap-primary-light: #f0f6fc; /* (Đã thêm) */
     --ap-primary-text: #ffffff;
     
     --ap-bg-body: #f0f2f5;
     --ap-bg-white: #ffffff;
+    --ap-bg-hover: #f8f9fa;      /* (Đã thêm) */
     
     --ap-text-dark: #1e1e1e;
+    --ap-text-light: #444444;    /* (Đã thêm) */
     --ap-text-muted: #6C757D;
 
     --ap-border: #e0e2e5;
@@ -23,7 +26,7 @@
     --ap-radius-sm: 4px;
     --ap-radius: 6px;
     --ap-shadow-lg: 0 5px 15px rgba(0, 0, 0, 0.07);
-    --ap-transition: all 0.15s ease-in-out;
+    --ap-transition: all 0.15s ease-in-out; /* (Đã thêm) */
 }
 
 /* === Cấu trúc chung === */
@@ -58,7 +61,7 @@ body.login {
     width: 48px;
     height: 48px;
     /* Logo WP màu --ap-primary */
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%230073ea"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zM7.71 14.26a.6.6 0 00.1.25c.12.16.27.3.46.4.2.1.4.16.6.2.22.04.45.06.68.06.42 0 .8-.08 1.14-.24.34-.16.6-.4.8-.7l.1-.15.3-1.2a.5.5 0 00-.94-.3l-.2 1c-.1.2-.24.34-.4.4-.18.08-.36.12-.54.12-.16 0-.3-.02-.44-.06-.14-.04-.26-.1-.36-.18-.1-.08-.18-.18-.24-.3-.06-.12-.1-.25-.1-.4v-5.4c0-.15.04-.28.1-.4.06-.12.14-.22.24-.3.1-.08.22-.14.36-.18.14-.04.3-.06.44-.06.18 0 .36.04.54.12.16.06.3.2.4.4l.2 1a.5.5 0 00.95-.3l-.3-1.2c-.2-.3-.46-.54-.8-.7C11.6 4.08 11.22 4 10.8 4c-.23 0-.46.02-.68.06-.2.04-.4.1-.6.2-.2.1-.36.24-.46.4a.6.6 0 00-.1.25L9 6.22V5.7c0-.2-.06-.38-.2-.52-.13-.14-.3-.2-.5-.2h-.6c-.2 0-.37.07-.5.2-.14.14-.2.32-.2.52v9c0 .2.06.38.2.52.13.14.3.2.5.2h.6c.2 0 .37-.07.5-.2.14-.14-.2-.32-.2-.52v-.94l-1.28 1.5z" clip-rule="evenodd" /></svg>');
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%230073ea"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zM7.71 14.26a.6.6 0 00.1.25c.12.16.27.3.46.4.2.1.4.16.6.2.22.04.45.06.68.06.42 0 .8-.08 1.14-.24.34-.16.6-.4.8-.7l.1-.15.3-1.2a.5.5 0 00-.94-.3l-.2 1c-.1.2-.24.34-.4.4-.18.08-.36.12-.54.12-.16 0-.3-.02-.44-.06-.14-.04-.26-.1-.36-.18-.1-.08-.18-.18-.24-.3-.06-.12-.1-.25-.1-.4v-5.4c0-.15.04-.28.1-.4.06-.12.14-.22.24-.3.1-.08.22-.14.36-.18.14-.04.3-.06.44-.06.18 0 .36.04.54.12.16.06.3.2.4.4l.2 1a.5.5 0 00.95-.3l-.3-1.2c-.2-.3-.46-.54-.8-.7C11.6 4.08 11.22 4 10.8 4c-.23 0-.46.02-.68.06-.2.04-.4.1-.6.2-.2.1-.36.24-.46.4a.6.6 0 00-.1.25L9 6.22V5.7c0-.2-.06-.38-.2-.52-.13-.14-.3-.2-.5-.2h-.6c-.2 0-.37.07-.5.2-.14.14-.2.32-.2.52v9c0 .2.06.38.2.52.13.14.3.2.5.2h.6c.2 0 .37-.07-.5-.2.14-.14-.2-.32-.2-.52v-.94l-1.28 1.5z" clip-rule="evenodd" /></svg>');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -154,4 +157,33 @@ body.login {
     border-color: var(--ap-border);
     background: var(--ap-bg-white);
     box-shadow: var(--ap-shadow-lg);
+}
+
+/* === DARK MODE CHO TRANG ĐĂNG NHẬP (ĐÃ THÊM) === */
+/* Tự động phát hiện chế độ tối của hệ điều hành */
+@media (prefers-color-scheme: dark) {
+    body.login {
+        /* Định nghĩa lại các biến cho nền tối */
+        --ap-bg-body: #18191a;
+        --ap-bg-white: #242526;
+        --ap-text-dark: #e4e6eb;
+        --ap-text-muted: #8a8d91;
+        --ap-border: #474747;
+        --ap-border-focus: #0080ff;
+        --ap-primary: #0080ff;
+        --ap-primary-dark: #0073ea;
+        --ap-primary-light: #2c3a4f;
+        --ap-primary-text: #ffffff;
+        --ap-shadow-lg: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Đảo màu logo (vì logo SVG của bạn đang fill màu --ap-primary) */
+    .login h1 {
+        background: var(--ap-bg-white);
+    }
+
+    .login h1 a {
+        /* Dùng SVG data-uri đã được đổi màu fill thành --ap-primary của dark mode */
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%230080ff"><path fill-rule="evenodd" d="M10 0C4.477 0 0 4.477 0 10s4.477 10 10 10 10-4.477 10-10S15.523 0 10 0zM7.71 14.26a.6.6 0 00.1.25c.12.16.27.3.46.4.2.1.4.16.6.2.22.04.45.06.68.06.42 0 .8-.08 1.14-.24.34-.16.6-.4.8-.7l.1-.15.3-1.2a.5.5 0 00-.94-.3l-.2 1c-.1.2-.24.34-.4.4-.18.08-.36.12-.54.12-.16 0-.3-.02-.44-.06-.14-.04-.26-.1-.36-.18-.1-.08-.18-.18-.24-.3-.06-.12-.1-.25-.1-.4v-5.4c0-.15.04-.28.1-.4.06-.12.14-.22.24-.3.1-.08.22-.14.36-.18.14-.04.3-.06.44-.06.18 0 .36.04.54.12.16.06.3.2.4.4l.2 1a.5.5 0 00.95-.3l-.3-1.2c-.2-.3-.46-.54-.8-.7C11.6 4.08 11.22 4 10.8 4c-.23 0-.46.02-.68.06-.2.04-.4.1-.6.2-.2.1-.36.24-.46.4a.6.6 0 00-.1.25L9 6.22V5.7c0-.2-.06-.38-.2-.52-.13-.14-.3-.2-.5-.2h-.6c-.2 0-.37.07-.5.2-.14.14-.2.32-.2.52v9c0 .2.06.38.2.52.13.14.3.2.5.2h.6c.2 0 .37-.07-.5-.2.14-.14-.2-.32-.2-.52v-.94l-1.28 1.5z" clip-rule="evenodd" /></svg>');
+    }
 }

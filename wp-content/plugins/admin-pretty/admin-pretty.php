@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Admin Pretty (Đã Đại Tu v6.0)
+ * Plugin Name:       Admin Pretty
  * Plugin URI:        https://justsayeasy.com
  * Description:       Một plugin để làm đẹp toàn diện giao diện admin và trang đăng nhập WordPress, hỗ trợ Chế độ Sáng/Tối.
  * Version:           6.0.0
