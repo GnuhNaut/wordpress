@@ -2,29 +2,22 @@
 /**
  * Plugin Name:       Admin Pretty
  * Plugin URI:        https://justsayeasy.com
- * Description:       Một plugin để làm đẹp toàn diện giao diện admin và trang đăng nhập WordPress, hỗ trợ Chế độ Sáng/Tối.
- * Version:           6.0.0
- * Author:            justsayeasy.com (Đại tu bởi Trợ lý Wordpress)
+ * Description:       A plugin to completely beautify WordPress admin interface and login page, supports Light/Dark Mode.
+ * Version:           1.0.0
+ * Author:            justsayeasy.com 
  * Author URI:        https://justsayeasy.com
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       admin-pretty
  */
 
-// Chặn truy cập trực tiếp vào file
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// === Định nghĩa hằng số cho plugin ===
 define( 'AP_VERSION', '6.0.0' );
 define( 'AP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
-/**
- * Tải file CSS cho khu vực Bảng điều khiển (Admin Dashboard).
- *
- * Hook: admin_enqueue_scripts
- */
 function ap_enqueue_admin_styles() {
     wp_enqueue_style(
         'admin-pretty-dashboard-style',
@@ -35,11 +28,6 @@ function ap_enqueue_admin_styles() {
 }
 add_action( 'admin_enqueue_scripts', 'ap_enqueue_admin_styles' );
 
-/**
- * Tải file CSS cho trang Đăng nhập (Login Page).
- *
- * Hook: login_enqueue_scripts
- */
 function ap_enqueue_login_styles() {
     wp_enqueue_style(
         'admin-pretty-login-style',
@@ -50,30 +38,21 @@ function ap_enqueue_login_styles() {
 }
 add_action( 'login_enqueue_scripts', 'ap_enqueue_login_styles' );
 
-
-// === PHẦN NÂNG CẤP: TẠO MENU CÀI ĐẶT CHO CHẾ ĐỘ SÁNG/TỐI ===
-
-/**
- * Thêm trang cài đặt vào menu "Settings"
- */
 function ap_add_settings_page() {
     add_options_page(
-        'Admin Pretty Settings',      // Tiêu đề trang
-        'Admin Pretty',               // Tên menu
-        'manage_options',             // Quyền truy cập
-        'admin-pretty-settings',      // Slug
-        'ap_render_settings_page'     // Hàm callback để render trang
+        'Admin Pretty Settings',      
+        'Admin Pretty',              
+        'manage_options',           
+        'admin-pretty-settings',     
+        'ap_render_settings_page' 
     );
 }
 add_action( 'admin_menu', 'ap_add_settings_page' );
 
-/**
- * Đăng ký cài đặt (setting) của plugin
- */
 function ap_register_settings() {
     register_setting(
-        'ap_settings_group',          // Tên nhóm setting
-        'ap_color_mode',              // Tên option
+        'ap_settings_group',         
+        'ap_color_mode',             
         array(
             'type'              => 'string',
             'sanitize_callback' => 'sanitize_text_field',
@@ -83,9 +62,6 @@ function ap_register_settings() {
 }
 add_action( 'admin_init', 'ap_register_settings' );
 
-/**
- * Render giao diện trang cài đặt
- */
 function ap_render_settings_page() {
     ?>
     <div class="wrap">
@@ -97,30 +73,26 @@ function ap_render_settings_page() {
             ?>
             <table class="form-table">
                 <tr valign="top">
-                    <th scope="row">Chế độ Giao diện</th>
+                    <th scope="row">Theme</th>
                     <td>
                         <select name="ap_color_mode">
                             <option value="light" <?php selected( get_option( 'ap_color_mode' ), 'light' ); ?>>
-                                ☀️ Chế độ Sáng (Mặc định)
+                                ☀️ Light Mode (Default)
                             </option>
                             <option value="dark" <?php selected( get_option( 'ap_color_mode' ), 'dark' ); ?>>
-                                🌙 Chế độ Tối
+                                🌙 Dark Mode
                             </option>
                         </select>
-                        <p class="description">Chọn giao diện bạn muốn sử dụng cho khu vực quản trị.</p>
+                        <p class="description">Change your admin theme.</p>
                     </td>
                 </tr>
             </table>
-            <?php submit_button( 'Lưu thay đổi' ); ?>
+            <?php submit_button( 'Save Theme' ); ?>
         </form>
     </div>
     <?php
 }
 
-/**
- * Thêm class vào thẻ <body> của admin
- * Đây là chìa khóa để kích hoạt Dark Mode
- */
 function ap_add_body_class( $classes ) {
     $color_mode = get_option( 'ap_color_mode', 'light' );
     

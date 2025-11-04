@@ -85,9 +85,9 @@
     --ap-bg-submenu: #1c1d1e;   /* Nền submenu tối hơn một chút */
 
     /* Chữ */
-    --ap-text-dark: #e4e6eb;    /* Màu chữ chính (Trắng ngà) */
-    --ap-text-light: #b0b3b8;    /* Màu chữ phụ, mô tả */
-    --ap-text-muted: #8a8d91;    /* Màu chữ mờ hơn */
+    --ap-text-dark: #fff;    /* Màu chữ chính (Trắng ngà) */
+    --ap-text-light: #e4e6eb;    /* Màu chữ phụ, mô tả */
+    --ap-text-muted: #b0b3b8;    /* Màu chữ mờ hơn */
     --ap-text-link: var(--ap-primary);
     --ap-text-link-hover: #3399ff; /* Link hover sáng hơn */
 
