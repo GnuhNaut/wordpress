@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="jse-decoder-tool">
+        <style>
+            /* SCOPED CSS - Does not affect the rest of the site */
+            #jse-decoder-tool {
+                font-family: sans-serif; /* Fallback system font */
+                color: #333;
+                line-height: 1.6;
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+    
+            #jse-decoder-tool * {
+                box-sizing: border-box;
+            }
+    
+            /* -- TOOL INTERFACE (Above the fold) -- */
+            .jse-tool-interface {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                background-color: #e0f7fa; /* Light Cyan */
+                border: 3px solid #000;
+                border-radius: 20px;
+                padding: 30px;
+                margin-bottom: 50px;
+                box-shadow: 8px 8px 0px #000;
+                min-height: 70vh; /* Ensure visibility */
+                align-items: stretch;
+            }
+    
+            .jse-column {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                min-width: 280px;
+            }
+    
+            .jse-middle-column {
+                flex: 0 0 200px;
+                justify-content: center;
+                align-items: center;
+                gap: 15px;
+            }
+    
+            /* Text Areas */
+            .jse-textarea-wrapper {
+                position: relative;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+            }
+    
+            .jse-label {
+                font-weight: bold;
+                margin-bottom: 10px;
+                font-size: 1.1rem;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+    
+            .jse-textarea {
+                width: 100%;
+                height: 100%;
+                min-height: 300px;
+                padding: 15px;
+                border: 3px solid #000;
+                border-radius: 10px;
+                font-family: monospace;
+                font-size: 14px;
+                resize: vertical;
+                background: #fff;
+            }
+    
+            .jse-textarea:focus {
+                outline: none;
+                background-color: #fffde7; /* Light Yellow focus */
+            }
+    
+            /* Controls */
+            .jse-select {
+                width: 100%;
+                padding: 12px;
+                border: 3px solid #000;
+                border-radius: 10px;
+                background-color: #fff;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 4px 4px 0px #000;
+                margin-bottom: 10px;
+            }
+    
+            .jse-btn {
+                width: 100%;
+                padding: 15px;
+                border: 3px solid #000;
+                border-radius: 10px;
+                font-weight: 900;
+                text-transform: uppercase;
+                cursor: pointer;
+                transition: all 0.1s;
+                box-shadow: 4px 4px 0px #000;
+                margin-bottom: 10px;
+                text-align: center;
+            }
+    
+            .jse-btn:active {
+                transform: translate(2px, 2px);
+                box-shadow: 2px 2px 0px #000;
+            }
+    
+            .jse-btn-encode {
+                background-color: #ffeb3b; /* Bright Yellow */
+                color: #000;
+            }
+    
+            .jse-btn-decode {
+                background-color: #4dd0e1; /* Bright Cyan */
+                color: #000;
+            }
+    
+            .jse-btn-copy {
+                background-color: #ff8a65; /* Salmon/Orange */
+                color: #000;
+                margin-top: 10px;
+                align-self: flex-end;
+                width: auto;
+                min-width: 120px;
+            }
+    
+            /* -- CONTENT SECTION (SEO) -- */
+            .jse-content-section {
+                background: #fff;
+                padding: 20px;
+                max-width: 1000px;
+                margin: 0 auto;
+            }
+    
+            .jse-h1 {
+                font-size: 2.5rem;
+                color: #000;
+                text-align: center;
+                margin-bottom: 20px;
+                text-transform: uppercase;
+                text-shadow: 2px 2px 0px #ffeb3b;
+            }
+    
+            .jse-h2 {
+                font-size: 1.8rem;
+                color: #000;
+                margin-top: 40px;
+                margin-bottom: 15px;
+                border-bottom: 3px solid #ffeb3b;
+                display: inline-block;
+                padding-right: 20px;
+            }
+    
+            .jse-h3 {
+                font-size: 1.3rem;
+                font-weight: bold;
+                margin-top: 20px;
+                color: #444;
+            }
+    
+            .jse-p {
+                margin-bottom: 15px;
+                font-size: 1.1rem;
+                color: #555;
+            }
+    
+            .jse-list {
+                list-style-type: none;
+                padding: 0;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 15px;
+            }
+    
+            .jse-list li {
+                background: #f9f9f9;
+                padding: 15px;
+                border-left: 5px solid #4dd0e1;
+                border-radius: 5px;
+            }
+    
+            .jse-step-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                margin-top: 20px;
+            }
+    
+            .jse-step {
+                flex: 1;
+                min-width: 200px;
+                background: #fffde7;
+                padding: 20px;
+                border: 2px solid #000;
+                border-radius: 10px;
+                text-align: center;
+            }
+            
+            .jse-step-icon {
+                font-size: 2rem;
+                display: block;
+                margin-bottom: 10px;
+            }
+    
+            /* FAQ */
+            .jse-faq-item {
+                margin-bottom: 20px;
+                border: 2px solid #eee;
+                padding: 15px;
+                border-radius: 8px;
+            }
+            .jse-faq-question {
+                font-weight: bold;
+                color: #000;
+                margin-bottom: 10px;
+            }
+    
+            /* Responsive */
+            @media (max-width: 768px) {
+                .jse-tool-interface {
+                    flex-direction: column;
+                }
+                .jse-middle-column {
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    flex: auto;
+                }
+                .jse-btn {
+                    flex: 1;
+                }
+                .jse-h1 { font-size: 2rem; }
+            }
+        </style>
+    
+        <div class="jse-tool-interface">
+            <div class="jse-column">
+                <div class="jse-textarea-wrapper">
+                    <label class="jse-label" for="jse-input">Input Data</label>
+                    <textarea id="jse-input" class="jse-textarea" placeholder="Type or paste content here..."></textarea>
+                </div>
+            </div>
+    
+            <div class="jse-column jse-middle-column">
+                <label class="jse-label" style="width:100%; text-align:center;">Select Format</label>
+                <select id="jse-format-select" class="jse-select">
+                    <option value="base64" selected>Base64</option>
+                    <option value="url">URL Encode</option>
+                    <option value="html">HTML Entities</option>
+                    <option value="hex">Hexadecimal</option>
+                    <option value="binary">Binary</option>
+                    <option value="base64url">Base64 URL</option>
+                    <option value="rot13">ROT13</option>
+                    <option value="reverse">Reverse Text</option>
+                    <option value="ascii">ASCII Codes</option>
+                    <option value="octal">Octal</option>
+                    <option value="morse">Morse Code</option>
+                    <option value="atbash">Atbash Cipher</option>
+                    <option value="caesar">Caesar Cipher (+1)</option>
+                    <option value="uppercase">Upper Case</option>
+                    <option value="lowercase">Lower Case</option>
+                    <option value="capitalize">Capitalize Words</option>
+                    <option value="slug">URL Slugify</option>
+                    <option value="remove_space">Remove Spaces</option>
+                    <option value="random_case">RaNdOm CaSe</option>
+                </select>
+    
+                <button id="jse-btn-encode" class="jse-btn jse-btn-encode">Encode ⬇</button>
+                <button id="jse-btn-decode" class="jse-btn jse-btn-decode">Decode ⬆</button>
+            </div>
+    
+            <div class="jse-column">
+                <div class="jse-textarea-wrapper">
+                    <label class="jse-label" for="jse-output">Result</label>
+                    <textarea id="jse-output" class="jse-textarea" readonly placeholder="Result will appear here..."></textarea>
+                    <button id="jse-btn-copy" class="jse-btn jse-btn-copy">Copy 📋</button>
+                </div>
+            </div>
+        </div>
+    
+        <div class="jse-content-section">
+            <h1 class="jse-h1">Free Online Decode Encode Tool</h1>
+            
+            <p class="jse-p">
+                Welcome to the ultimate <strong>tool decode encode online free</strong> solution on JustSayEasy.com. Whether you are a developer debugging code, a student learning about data formats, or simply looking to obfuscate text, our robust utility handles the top 20 most popular encoding standards instantly directly in your browser.
+            </p>
+    
+            <h2 class="jse-h2">Supported Formats & Descriptions</h2>
+            <p class="jse-p">Our tool decode encode online free utility supports the following standards:</p>
+            <ul class="jse-list">
+                <li><strong>Base64:</strong> A binary-to-text encoding scheme that represents binary data in an ASCII string format.</li>
+                <li><strong>URL Encode:</strong> Converts characters into a format that can be transmitted over the Internet (percent-encoding).</li>
+                <li><strong>HTML Entities:</strong> Converts reserved characters to their corresponding HTML entities (e.g., &lt; to &amp;lt;).</li>
+                <li><strong>Hexadecimal:</strong> Represents binary data using base-16 arithmetic (0-9 and A-F).</li>
+                <li><strong>Binary:</strong> The most basic computer language, representing text as a sequence of 0s and 1s.</li>
+                <li><strong>ROT13:</strong> A simple letter substitution cipher that replaces a letter with the 13th letter after it.</li>
+                <li><strong>Base64 URL:</strong> Modified Base64 for use in URLs and filenames.</li>
+                <li><strong>Reverse Text:</strong> Simply flips your text string backward. useful for simple obfuscation.</li>
+                <li><strong>ASCII Codes:</strong> Converts text characters into their numerical ASCII standard representation.</li>
+                <li><strong>Octal:</strong> Represents numbers or text using the base-8 number system.</li>
+                <li><strong>Morse Code:</strong> Encodes text characters as standardized sequences of two different signal durations (dots and dashes).</li>
+                <li><strong>Atbash Cipher:</strong> A substitution cipher where the alphabet is reversed (A becomes Z, B becomes Y).</li>
+                <li><strong>Caesar Cipher:</strong> A shift cipher where each letter is shifted a fixed number of positions down the alphabet.</li>
+                <li><strong>Upper/Lower Case:</strong> Standard text transformations for formatting needs.</li>
+                <li><strong>Slugify:</strong> Converts text into a URL-friendly slug format (lowercase with hyphens).</li>
+            </ul>
+    
+            <h2 class="jse-h2">How to Use This Tool</h2>
+            <div class="jse-step-container">
+                <div class="jse-step">
+                    <span class="jse-step-icon">1️⃣</span>
+                    <strong>Input Data</strong><br>
+                    Paste your text into the left input box.
+                </div>
+                <div class="jse-step">
+                    <span class="jse-step-icon">2️⃣</span>
+                    <strong>Select Format</strong><br>
+                    Choose one of the 20 formats from the middle dropdown.
+                </div>
+                <div class="jse-step">
+                    <span class="jse-step-icon">3️⃣</span>
+                    <strong>Convert</strong><br>
+                    Click "Encode" or "Decode" to process the data.
+                </div>
+                <div class="jse-step">
+                    <span class="jse-step-icon">4️⃣</span>
+                    <strong>Copy</strong><br>
+                    Grab your result from the right box with one click.
+                </div>
+            </div>
+    
+            <h2 class="jse-h2">Why Choose Our Tool?</h2>
+            <p class="jse-p">
+                When searching for a <strong>tool decode encode online free</strong>, JustSayEasy stands out because:
+            </p>
+            <ul class="jse-list" style="grid-template-columns: 1fr;">
+                <li><strong>100% Client-Side Privacy:</strong> Your data never leaves your browser. All encoding happens locally via JavaScript, ensuring maximum security.</li>
+                <li><strong>User-Friendly Design:</strong> Our bright, cartoon-style interface makes technical tasks feel easy and fun, contrasting with the boring gray tools found elsewhere.</li>
+                <li><strong>All-in-One Convenience:</strong> Instead of visiting twenty different sites for Hex, Base64, or URL encoding, you have everything here in one place.</li>
+            </ul>
+    
+            <h2 class="jse-h2">Definition: What is JustSayEasy Decoder?</h2>
+            <p class="jse-p">
+                The JustSayEasy Decoder is a web-based utility designed to translate data between different formats. Encoding transforms data into a specific format for efficient storage or transmission, while decoding reverses this process to make the data readable again.
+            </p>
+    
+            <h2 class="jse-h2">Frequently Asked Questions (FAQ)</h2>
+            <div class="jse-faq-item">
+                <div class="jse-faq-question">Is this tool decode encode online free to use forever?</div>
+                <div class="jse-faq-answer">Yes, JustSayEasy provides this tool completely free of charge with no usage limits.</div>
+            </div>
+            <div class="jse-faq-item">
+                <div class="jse-faq-question">Does my data get sent to a server?</div>
+                <div class="jse-faq-answer">No. This tool runs entirely in your web browser using JavaScript. Your text inputs are not stored or transmitted to our servers.</div>
+            </div>
+            <div class="jse-faq-item">
+                <div class="jse-faq-question">Can I decode a hashed string (like MD5)?</div>
+                <div class="jse-faq-answer">No. Hashing is a one-way process. This tool focuses on encoding (reversible) formats like Base64, Hex, and URL encoding.</div>
+            </div>
+        </div>
+    
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [{
+            "@type": "Question",
+            "name": "Is this tool decode encode online free to use forever?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, JustSayEasy provides this tool completely free of charge with no usage limits."
+            }
+          }, {
+            "@type": "Question",
+            "name": "Does my data get sent to a server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. This tool runs entirely in your web browser using JavaScript. Your text inputs are not stored or transmitted to our servers."
+            }
+          }, {
+            "@type": "Question",
+            "name": "Can I decode a hashed string?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Hashing is a one-way process. This tool focuses on encoding (reversible) formats like Base64, Hex, and URL encoding."
+            }
+          }]
+        }
+        </script>
+    
+        <script>
+            (function() {
+                const inputEl = document.getElementById('jse-input');
+                const outputEl = document.getElementById('jse-output');
+                const formatEl = document.getElementById('jse-format-select');
+                const btnEncode = document.getElementById('jse-btn-encode');
+                const btnDecode = document.getElementById('jse-btn-decode');
+                const btnCopy = document.getElementById('jse-btn-copy');
+    
+                // Helper Functions
+                const textToBin = (str) => str.split('').map(x => x.charCodeAt(0).toString(2).padStart(8, '0')).join(' ');
+                const binToText = (str) => str.replace(/\s/g, '').match(/.{1,8}/g)?.map(v => String.fromCharCode(parseInt(v, 2))).join('') || '';
+                
+                const textToHex = (str) => str.split('').map(c => c.charCodeAt(0).toString(16).padStart(2, '0')).join('');
+                const hexToText = (str) => str.match(/.{1,2}/g)?.map(v => String.fromCharCode(parseInt(v, 16))).join('') || '';
+    
+                const rot13 = (str) => str.replace(/[a-zA-Z]/g, function (c) {
+                    return String.fromCharCode((c <= "Z" ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26);
+                });
+    
+                const morseCodeMap = { 
+                    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..', '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----', ' ': '/'
+                };
+                const textToMorse = (str) => str.toUpperCase().split('').map(c => morseCodeMap[c] || c).join(' ');
+                const morseToText = (str) => {
+                    const reversedMap = Object.fromEntries(Object.entries(morseCodeMap).map(([k, v]) => [v, k]));
+                    return str.split(' ').map(c => reversedMap[c] || c).join('');
+                };
+    
+                // Main Processing
+                const process = (mode) => {
+                    const input = inputEl.value;
+                    const format = formatEl.value;
+                    let result = "";
+    
+                    try {
+                        if (mode === 'encode') {
+                            switch(format) {
+                                case 'base64': result = btoa(input); break;
+                                case 'url': result = encodeURIComponent(input); break;
+                                case 'html': result = input.replace(/[\u00A0-\u9999<>\&]/g, i => '&#'+i.charCodeAt(0)+';'); break;
+                                case 'hex': result = textToHex(input); break;
+                                case 'binary': result = textToBin(input); break;
+                                case 'base64url': result = btoa(input).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); break;
+                                case 'rot13': result = rot13(input); break;
+                                case 'reverse': result = input.split('').reverse().join(''); break;
+                                case 'ascii': result = input.split('').map(x => x.charCodeAt(0)).join(' '); break;
+                                case 'octal': result = input.split('').map(c => c.charCodeAt(0).toString(8)).join(' '); break;
+                                case 'morse': result = textToMorse(input); break;
+                                case 'atbash': result = input.replace(/[a-zA-Z]/g, c => String.fromCharCode((c <= 'Z' ? 90 : 122) - (c.charCodeAt(0) - (c <= 'Z' ? 65 : 97)))); break;
+                                case 'caesar': result = input.replace(/[a-zA-Z]/g, c => String.fromCharCode((c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 1) ? c : c - 26)); break;
+                                case 'uppercase': result = input.toUpperCase(); break;
+                                case 'lowercase': result = input.toLowerCase(); break;
+                                case 'capitalize': result = input.replace(/\b\w/g, l => l.toUpperCase()); break;
+                                case 'slug': result = input.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-'); break;
+                                case 'remove_space': result = input.replace(/\s+/g, ''); break;
+                                case 'random_case': result = input.split('').map(c => Math.random() > 0.5 ? c.toUpperCase() : c.toLowerCase()).join(''); break;
+                                default: result = "Format not supported for encode.";
+                            }
+                        } else { // Decode
+                            switch(format) {
+                                case 'base64': result = atob(input); break;
+                                case 'url': result = decodeURIComponent(input); break;
+                                case 'html': 
+                                    const txt = document.createElement("textarea");
+                                    txt.innerHTML = input;
+                                    result = txt.value; 
+                                    break;
+                                case 'hex': result = hexToText(input); break;
+                                case 'binary': result = binToText(input); break;
+                                case 'base64url': 
+                                    let b64 = input.replace(/-/g, '+').replace(/_/g, '/');
+                                    while(b64.length % 4) b64 += '=';
+                                    result = atob(b64); 
+                                    break;
+                                case 'rot13': result = rot13(input); break;
+                                case 'reverse': result = input.split('').reverse().join(''); break;
+                                case 'ascii': result = input.split(' ').map(c => String.fromCharCode(parseInt(c))).join(''); break;
+                                case 'octal': result = input.split(' ').map(c => String.fromCharCode(parseInt(c, 8))).join(''); break;
+                                case 'morse': result = morseToText(input); break;
+                                case 'atbash': result = input.replace(/[a-zA-Z]/g, c => String.fromCharCode((c <= 'Z' ? 90 : 122) - (c.charCodeAt(0) - (c <= 'Z' ? 65 : 97)))); break;
+                                case 'caesar': result = input.replace(/[a-zA-Z]/g, c => String.fromCharCode((c <= 'Z' ? 65 : 97) <= (c = c.charCodeAt(0) - 1) ? c : c + 26)); break;
+                                default: result = input; // Transformation only formats return input or prompt
+                            }
+                        }
+                    } catch (e) {
+                        result = "Error: Invalid input for this format.";
+                    }
+                    outputEl.value = result;
+                };
+    
+                // Event Listeners
+                btnEncode.addEventListener('click', () => process('encode'));
+                btnDecode.addEventListener('click', () => process('decode'));
+                
+                btnCopy.addEventListener('click', () => {
+                    outputEl.select();
+                    document.execCommand('copy'); // Fallback for older browsers
+                    navigator.clipboard.writeText(outputEl.value).then(() => {
+                        const originalText = btnCopy.innerText;
+                        btnCopy.innerText = "Copied! ✅";
+                        setTimeout(() => btnCopy.innerText = originalText, 1500);
+                    });
+                });
+    
+            })();
+        </script>
+    </div>
+</body>
+</html>
